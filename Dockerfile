@@ -1,14 +1,22 @@
-FROM arm32v7/python:3.9
+FROM python:3.11-slim-bullseye
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+RUN apt-get update \
+    & apt-get -y upgrade
 
 RUN mkdir -p /app/config
 RUN mkdir -p /app/host
 
 ENV YES_YOU_ARE_IN_A_CONTAINER=True
 
-COPY requirements.txt /app/
-RUN pip install -r /app/requirements.txt
+WORKDIR /app
 
-COPY src/ /app/
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
+COPY src/* ./
 RUN chmod a+x /app/bin/system_sensors.sh
 
 CMD /app/bin/system_sensors.sh
