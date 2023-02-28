@@ -412,7 +412,7 @@ sensors = {
                  'icon': 'clock',
                  'sensor_type': 'sensor',
                  'function': get_last_boot},
-          'last_uptime':
+          'uptime':
                 {'name': 'Uptime',
                  'unit': 's',
                  'icon': 'clock',
