@@ -320,9 +320,9 @@ sensors = {
                  'sensor_type': 'switch',
                  'function': get_display_status,
                  'prop': ProperyBag({
-                     'availability_topic' : "system-sensors/sensor/{device_name}/availability",
-                     'command_topic'      : 'system-sensors/sensor/{device_name}/command',
-                     'state_topic'        : 'system-sensors/sensor/{device_name}/state',
+                     'availability_topic' : "{rootTopic}/availability",
+                     'command_topic'      : '{rootTopic}/command',
+                     'state_topic'        : '{rootTopic}/state',
                      'value_template'     : '{{value_json.display}}',
                      'state_off'          : '0',
                      'state_on'           : '1',
