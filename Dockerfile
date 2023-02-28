@@ -6,8 +6,10 @@ ENV LC_ALL C.UTF-8
 RUN apt-get update \
     && apt-get -y upgrade
 
-#RUN apt-get install -y gcc \
-#    && rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y \
+        gcc \
+        python3-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /app/config
 RUN mkdir -p /app/host
