@@ -4,7 +4,10 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 RUN apt-get update \
-    & apt-get -y upgrade
+    && apt-get -y upgrade
+
+#RUN apt-get install -y gcc \
+#    && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /app/config
 RUN mkdir -p /app/host
@@ -16,7 +19,7 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-COPY src/* ./
-RUN chmod a+x /app/bin/system_sensors.sh
+COPY src/ ./
+RUN chmod a+x ./bin/system_sensors.sh
 
 CMD /app/bin/system_sensors.sh
