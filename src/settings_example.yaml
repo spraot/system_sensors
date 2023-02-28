@@ -22,6 +22,7 @@ sensors:
   swap_usage: true
   power_status: true
   last_boot: true
+  uptime: true
   hostname: true
   host_ip: true
   host_os: true

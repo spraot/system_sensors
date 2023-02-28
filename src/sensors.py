@@ -88,6 +88,9 @@ def utc_from_timestamp(timestamp: float) -> dt.datetime:
 def get_last_boot():
     return str(as_local(utc_from_timestamp(psutil.boot_time())).isoformat())
 
+def get_uptime():
+    return time.time()-psutil.boot_time()
+
 def get_last_message():
     return str(as_local(utc_from_timestamp(time.time())).isoformat())
 
@@ -409,6 +412,12 @@ sensors = {
                  'icon': 'clock',
                  'sensor_type': 'sensor',
                  'function': get_last_boot},
+          'last_uptime':
+                {'name': 'Uptime',
+                 'unit': 's',
+                 'icon': 'clock',
+                 'sensor_type': 'sensor',
+                 'function': get_uptime},
           'hostname':
                 {'name': 'Hostname',
                  'icon': 'card-account-details',
