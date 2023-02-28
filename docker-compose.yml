@@ -2,9 +2,10 @@ version: '3.2'
 
 services:
   monitoring:
-    container_name: system-sensors
+    container_name: system-sensors-test
     build: .
     restart: always
+    network_mode: host
     devices:
       - /dev/vchiq
     volumes:
