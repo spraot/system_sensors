@@ -15,7 +15,6 @@ fi
 PROJ_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 CONFIG_PATH="$PROJ_DIR/config/config.yml"
 CONFIG_TEMPLATE_PATH="$PROJ_DIR/config/config.template.yml"
-# BIN="/usr/local/bin/system-sensors"
 SERVICE_NAME="system-sensors"
 SERVICE_DEF="/etc/systemd/system/$SERVICE_NAME.service"
 
@@ -56,12 +55,6 @@ echo "Installing dependencies..."
 apt-get install -y gcc python3-dev python3.11-venv python3-pip
 (cd "$PROJ_DIR" && sudo -u $SUDO_USER python3 -m venv venv)
 (cd "$PROJ_DIR" && sudo -u $SUDO_USER venv/bin/pip install -r requirements.txt)
-
-# echo "Creating $BIN" 
-# cat > $BIN << EOF
-# $PROJ_DIR/venv/bin/python3 $PROJ_DIR/src/system_sensors.py $PROJ_DIR/config/config.yml
-# EOF
-# chmod +x $BIN
 
 echo "Creating service: $SERVICE_NAME"
 cat > $SERVICE_DEF << EOF
