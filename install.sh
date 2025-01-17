@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+set -o pipefail
 
 if [ ! -f "/etc/debian_version" ]; then
     echo "this install script only supports debian-based linux"
@@ -7,7 +9,7 @@ fi
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
-  exit
+  exit 1
 fi
 
 PROJ_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
@@ -47,12 +49,13 @@ else
     export TIMEZONE MQTTHOST MQTTPORT MQTTUSER MQTTPASS SERVERNAME
     export CLIENTID="$SERVERNAME-system-sensors-$RANDOM"
     cat "$CONFIG_TEMPLATE_PATH" | envsubst > "$CONFIG_PATH"
+    chown $SUDO_USER "$CONFIG_PATH"
 fi
 
 echo "Installing dependencies..."
-apt-get install -y gcc python3-dev python3.11-venv
-python -m venv venv
-venv/bin/pip install -r requirements.txt
+apt-get install -y gcc python3-dev python3.11-venv python3-pip
+(cd "$PROJ_DIR" && sudo -u $SUDO_USER python3 -m venv venv)
+(cd "$PROJ_DIR" && sudo -u $SUDO_USER venv/bin/pip install -r requirements.txt)
 
 # echo "Creating $BIN" 
 # cat > $BIN << EOF
@@ -77,3 +80,6 @@ EOF
 
 systemctl enable $SERVICE_NAME
 systemctl start $SERVICE_NAME
+
+systemctl is-active --quiet $SERVICE_NAME && echo "Install successful, $SERVICE_NAME is running" && exit 0
+echo "Install failed"s
