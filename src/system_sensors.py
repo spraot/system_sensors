@@ -118,7 +118,7 @@ def set_defaults(settings):
     if "rasp" not in OS_DATA["ID"]:
         settings['sensors']['display'] = False
     if "root_topic" not in settings['mqtt']:
-        settings['mqtt']['root_topic'] = 'system-sensors/sensor'
+        settings['mqtt']['root_topic'] = 'system'
 
     # 'settings' argument is local, so needs to be returned to overwrite the one in the main function
     return settings
